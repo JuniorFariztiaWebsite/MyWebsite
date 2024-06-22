@@ -1,0 +1,12 @@
+#imageContainer {
+    width: 176px; /* Width of image */
+    height: 176px; /* Height of image */
+    background-image: url('channels4_profile.jpg'); /* Path to your image */
+    background-size: cover; /* Make sure the image covers the container */
+    opacity: 0; /* Start as invisible */
+    transition: opacity 2s ease-in-out; /* Transition effect */
+}
+
+#imageContainer.visible {
+    opacity: 1; /* End as visible */
+}
