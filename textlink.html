@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secret Lyric</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: black;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            color: green;
+            font-size: 14px;
+            white-space: pre;
+            opacity: 0.05;
+            pointer-events: none;
+        }
+
+        .code {
+            font-family: monospace;
+        }
+
+        .container {
+            position: relative;
+            text-align: center;
+            color: white;
+        }
+
+        .password-box {
+            display: none;
+            margin: 20px 0;
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid white;
+            border-radius: 5px;
+            color: black;
+            background-color: white;
+        }
+
+        .lyric {
+            display: none;
+            margin-top: 20px;
+            text-align: left;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="background">
+        <div class="code">
+            <!-- Random code-like text for background -->
+            <pre>
+                10111001 11001011 01100100 10010010 11011000 01111010
+                00110100 01100011 11010101 10100110 11100010 00011100
+                11011011 10100101 00011001 01110111 01001100 11010001
+                01011110 11001000 01101101 10010101 10100111 11100010
+                00010010 01001100 11110101 10001011 10101001 00011010
+            </pre>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1>Please enter the password</h1>
+        <input type="password" id="password" placeholder="Enter Password" onkeyup="checkPassword(event)">
+        <div class="password-box" id="passwordBox">BOOM!</div>
+        <div class="lyric" id="lyric">
+            <h3>Secret Lyric, Trapped Within</h3>
+            <p>
+                [Verse 1]<br>
+                Waking in shadows, the light feels so far<br>
+                Chasing my demons, they’ve left their scars<br>
+                Searching for answers in echoes of night<br>
+                Trying to find my way back to the light<br><br>
+
+                [Chorus]<br>
+                Feels like I’m sinking deeper in<br>
+                Held by the quiet, caged within<br>
+                A distant light could pull me through<br>
+                But I’m frozen here, don’t know what to do<br><br>
+
+                [Verse 2]<br>
+                Footsteps are heavy, the weight's hard to bear<br>
+                Fading reminders of dreams in the air<br>
+                Whispers of courage call out from the dark<br>
+                But doubt keeps me silent, it’s tearing apart<br><br>
+
+                [Bridge]<br>
+                If I could gather the strength to fight<br>
+                Break through the darkness and step into light<br>
+                Each heartbeat’s a chance, a spark in the gloom<br>
+                I’ll rise from the ashes, escape from this tomb<br><br>
+
+                [Chorus]<br>
+                Feels like I’m sinking deeper in<br>
+                Held by the quiet, caged within<br>
+                A distant light could pull me through<br>
+                But I’m frozen here, don’t know what to do<br><br>
+
+                [Outro]<br>
+                But in the silence, I’ll learn to be brave<br>
+                Finding my way, I refuse to cave<br>
+                One step at a time, I’ll rise from the fall<br>
+                With hope as my guide, I’ll break down the walls
+            </p>
+        </div>
+    </div>
+
+    <script>
+        const correctPassword = "662015"; // Set your desired password here
+
+        function checkPassword(event) {
+            const passwordBox = document.getElementById('passwordBox');
+            const lyric = document.getElementById('lyric');
+            if (event.key === "Enter") {
+                const passwordInput = document.getElementById('password').value;
+                if (passwordInput === correctPassword) {
+                    passwordBox.style.display = "block";
+                    lyric.style.display = "block";
+                    document.getElementById('password').style.display = "none";
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>
