@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Steam Fair</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: #333;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+        .hidden {
+            display: none;
+        }
+        .input-box {
+            margin-top: 20px;
+            display: none;
+            animation: fadeInUp 0.5s forwards;
+        }
+        .input-box input {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            outline: none;
+        }
+        button, .rateBtn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 4px;
+            background-color: #28a745;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+        }
+        button:hover, .rateBtn:hover {
+            background-color: #218838;
+        }
+        .rateBtn[data-value="1"], .rateBtn[data-value="2"] {
+            background-color: #ffc107;
+            color: #fff;
+        }
+        .rateBtn[data-value="1"]:hover, .rateBtn[data-value="2"]:hover {
+            background-color: #e0a800;
+        }
+        .fade-out {
+            animation: fadeOut 0.5s forwards;
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+            }
+        }
+        .thankYouBox {
+            animation: fadeInUp 0.5s forwards;
+        }
+        a {
+            color: #2575fc;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <p>We are from group <span id="groupSpan">[<a href="#" id="insertGroup">INSERT HERE BY CLICKING</a>]</span></p>
+        <div id="groupBox" class="input-box">
+            <p>Please enter your group number and name</p>
+            <input type="text" id="groupInput" placeholder="Group number and name">
+            <button id="groupOk">OK</button>
+            <button id="groupCancel">Cancel</button>
+        </div>
+        <p class="hidden" id="projectText">What is this? This is <span id="projectSpan">[<a href="#" id="insertProject">INSERT ABOUT YOUR PROJECT</a>]</span></p>
+        <div id="projectBox" class="input-box">
+            <p>What is your project and what is it about?</p>
+            <input type="text" id="projectInput" placeholder="Project description">
+            <button id="projectOk">OK</button>
+            <button id="projectCancel">Cancel</button>
+        </div>
+        <button id="submitBtn" class="hidden">Submit</button>
+        <div id="ratingBox" class="input-box">
+            <p>Please rate our project!</p>
+            <button class="rateBtn" data-value="5">5</button>
+            <button class="rateBtn" data-value="4">4</button>
+            <button class="rateBtn" data-value="3">3</button>
+            <button class="rateBtn" data-value="2">Can Improve (2)</button>
+            <button class="rateBtn" data-value="1">Can Fix (1)</button>
+        </div>
+        <div id="thankYouBox" class="input-box thankYouBox hidden">
+            <p>Thank you!</p>
+            <p>Your rating: <span id="finalRating">0</span></p>
+        </div>
+        <div id="averageRatingBox" class="input-box hidden">
+            <p>Average Rating: <span id="averageRating">0</span></p>
+        </div>
+    </div>
+
+    <script>
+        let ratings = [];
+        
+        document.getElementById('insertGroup').addEventListener('click', function() {
+            document.getElementById('groupBox').style.display = 'block';
+        });
+
+        document.getElementById('groupOk').addEventListener('click', function() {
+            const groupInputValue = document.getElementById('groupInput').value;
+            if(groupInputValue.trim() !== "") {
+                document.getElementById('groupSpan').innerHTML = groupInputValue;
+                document.getElementById('groupBox').classList.add('fade-out');
+                setTimeout(() => {
+                    document.getElementById('groupBox').style.display = 'none';
+                    document.getElementById('projectText').classList.remove('hidden');
+                    document.getElementById('groupBox').classList.remove('fade-out');
+                }, 500);
+            } else {
+                alert("Please enter your group number and name.");
+            }
+        });
+
+        document.getElementById('groupCancel').addEventListener('click', function() {
+            document.getElementById('groupBox').style.display = 'none';
+        });
+
+        document.getElementById('insertProject').addEventListener('click', function() {
+            document.getElementById('projectBox').style.display = 'block';
+        });
+
+        document.getElementById('projectOk').addEventListener('click', function() {
+            const projectInputValue = document.getElementById('projectInput').value;
+            if(projectInputValue.trim() !== "") {
+                document.getElementById('projectSpan').innerHTML = projectInputValue;
+                document.getElementById('projectBox').classList.add('fade-out');
+                setTimeout(() => {
+                    document.getElementById('projectBox').style.display = 'none';
+                    document.getElementById('submitBtn').classList.remove('hidden');
+                    document.getElementById('projectBox').classList.remove('fade-out');
+                }, 500);
+            } else {
+                alert("Please enter your project description.");
+            }
+        });
+
+        document.getElementById('projectCancel').addEventListener('click', function() {
+            document.getElementById('projectBox').style.display = 'none';
+        });
+
+        document.getElementById('submitBtn').addEventListener('click', function() {
+            document.getElementById('ratingBox').style.display = 'block';
+        });
+
+        const rateButtons = document.querySelectorAll('.rateBtn');
+        rateButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const ratingValue = parseInt(this.getAttribute('data-value'));
+                ratings.push(ratingValue);
+                const averageRating = (ratings.reduce((a, b) => a + b, 0) / ratings.length).toFixed(1);
+                
+                document.getElementById('ratingBox').classList.add('fade-out');
+                setTimeout(() => {
+                    document.getElementById('ratingBox').style.display = 'none';
+                    document.getElementById('thankYouBox').style.display = 'block';
+                    document.getElementById('finalRating').innerText = ratingValue;
+                    document.getElementById('averageRatingBox').style.display = 'block';
+                    document.getElementById('averageRating').innerText = averageRating;
+                    document.getElementById('ratingBox').classList.remove('fade-out');
+                    setTimeout(() => {
+                        document.getElementById('thankYouBox').classList.add('hidden');
+                        document.getElementById('ratingBox').style.display = 'block';
+                    }, 2000); // Show thank you message for 2 seconds
+                }, 500);
+            });
+        });
+    </script>
+</body>
+</html>
